@@ -1,0 +1,241 @@
+<div class="panel panel-default">
+    <div class="panel-heading" style="background-color:#BBD7AF">
+  		<h3 style="color:#FFFFFF">Add your property in Estatify</h3></div>
+  <div class="panel-body">
+    <div class="container">
+
+      <%= form_for @property, :html => { multipart: true } do |f| %>
+
+      <% if @property.errors.any? %>
+      <div class="alert alert-danger">
+        <strong>
+          <%= pluralize(@property.errors.count, "error") %>
+          prevented you from continuing:
+        </strong>
+        <ul>
+          <% @property.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+      <% end %>
+
+      <div class="row">
+        <div class="col-md-4 select">
+          <div class="form-group">
+            <label>Type</label>
+            <%= f.select :space_type, [["For cultivation","For cultivation"], ["For events","For events"]], id: "space_type", prompt: "Select...", class: "form-control" %>
+          </div>
+        </div>
+
+        <div class="col-md-4 select">
+          <div class="form-group">
+            <label>Category</label>
+            <%= f.select :category, [["Blank","Blank"], ["Cultivable","Cultivable"], ["With trees","With trees"]], prompt: "Select...", class: "form-control" %>
+          </div>
+        </div>
+
+        <div class="col-md-4 select">
+          <div class="form-group">
+            <label>Main Ground Type</label>
+            <%= f.select :ground_type, [["Gazon","Gazon"], ["Concrete","Concrete"], ["Soil","Soil"]], prompt: "Select...", class: "form-control" %>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4 select">
+          <div class="form-group">
+            <label>Flatness</label>
+            <%= f.select :flatness, [["Mountain side","Mountain Side"], ["Flat","Flat"], ["Flat with small hills","Flat with small hills"]], prompt: "Select...", class: "form-control" %>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>Dimensions</label>
+            <%= f.text_field :dimensions, placeholder: "In square meters", class: "form-control" %>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group">
+          <label>Listing name</label>
+          <%= f.text_field :listing_name, placeholder: "Be clear and descriptive", class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group">
+          <label>Summary</label>
+          <%= f.text_area :summary, rows: 5, placeholder: "Tell us more details about your property, and mention everything that you think is important for the tenant to know", class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group">
+          <label>Rules</label>
+          <%= f.text_area :rules, rows: 5, placeholder: "Specify any rules about the property here", class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group">
+          <label>Address</label>
+          <%= f.text_field :address, placeholder: "What is your address?", class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group">
+          <label>Extras</label>
+        </div>
+      </div>
+      <div class="row">
+
+        <div class="col-md-4">
+          <div class="form-group">
+            <%= f.check_box :fenced %>
+           	Fenced
+          </div>
+          <div class="form-group">
+            <%= f.check_box :buildings %>
+            Buildings
+          </div>
+          <div class="form-group">
+            <%= f.check_box :animals %>
+            Animals
+          </div>
+          <div class="form-group">
+            <%= f.check_box :vehicles %>
+            Vehicles
+          </div>
+          <div class="form-group">
+            <%= f.check_box :drilling %>
+            Drilling
+          </div>
+          <div class="form-group">
+            <%= f.check_box :water_system %>
+            Water System
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="form-group">
+            <%= f.check_box :power_supply %>
+            Power Supply
+          </div>
+          <div class="form-group">
+            <%= f.check_box :water_supply %>
+            Water Supply
+          </div>
+          <div class="form-group">
+            <%= f.check_box :tools %>
+            Tools
+          </div>
+          <div class="form-group">
+            <%= f.check_box :pools_lakes %>
+            Pool/Small Lake
+          </div>
+          <div class="form-group">
+            <%= f.check_box :constructions %>
+            Constructions
+          </div>
+          <div class="form-group">
+            <%= f.check_box :anti_fire %>
+            Anti-fire Mechanism
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="form-group">
+            <%= f.check_box :lightning %>
+            Lightning Rod
+          </div>
+          <div class="form-group">
+            <%= f.check_box :alarm_system %>
+            Alarm System
+          </div>
+          <div class="form-group">
+            <%= f.check_box :cctv %>
+            CCTV cameras
+          </div>
+          <div class="form-group">
+            <%= f.check_box :solar_panels %>
+            Solar Panels
+          </div>
+          <div class="form-group">
+            <%= f.check_box :wind_turbines %>
+            Wind Turbines
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group select">
+            <label>Charge per</label>
+            <%= f.select :charge_per, [["Day","day"], ["Month","month"], ["Year","year"]], prompt: "Select...", class: "form-control" %>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>Price per day</label>
+            <div class="input-group">
+              <div class="input-group-addon">€</div>
+              <%= f.text_field :price, placeholder: "eg. 100", class: "form-control" %>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>Min Stay (in Days/Months/Years)</label>
+            <%= f.number_field :min_time, placeholder: "eg. 1", class: "form-control" %>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <span class="btn btn-default btn-file">
+              <i class="fa fa-cloud-upload fa-lg"></i>
+              Upload Photos
+              <%= file_field_tag "images[]", type: :file, multiple: true %>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div id="photos"><%= render 'photos/list' %></div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <%= f.check_box :active %>
+            Publish
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="form-group"></div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <i>* All fields are mandatory</i>
+          </div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <%= f.submit "Save", class: "btn btn-primary" %>
+      </div>
+
+      <% end %>
+    </div>
+  </div>
+</div>

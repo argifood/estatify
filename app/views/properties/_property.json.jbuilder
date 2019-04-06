@@ -1,0 +1,2 @@
+json.extract! property, :id, :listing_name, :summary, :address, :price, :active, :user_id, :latitude, :longitude, :space_type, :category, :flatness, :dimensions, :ground_type, :charge_per, :min_time, :power_supply, :water_supply, :animals, :vehicles, :drilling, :water_system, :tools, :pools_lakes, :constructions, :anti_fire, :lightning, :alarm_system, :cctv, :solar_panels, :wind_turbines, :fenced, :buildings, :created_at, :updated_at
+json.url property_url(property, format: :json)

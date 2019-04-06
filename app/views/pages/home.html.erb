@@ -1,0 +1,117 @@
+<br><br>
+<center><h2 style="font-family: 'Cabin', sans-serif;"><strong><span style="color:#5ca05b; font-size: 1.5em; font-style: italic; font-family: 'Fira Sans', sans-serif;">Estatify</span></strong> Rent a unique land and enjoy it as if it was your own!</h2></center>
+<br><br>
+<%= form_tag search_path, method: :get do %>
+	<div class="row">
+		<div class="col-md-6">
+			<%= text_field_tag :search, params[:search], placeholder: "Where would you like to invest?", class: "form-control" %>
+		</div>
+		<div class="col-md-2">
+			<%= text_field_tag :start_date, params[:start_date], placeholder: "Start Date", class: "form-control" %>
+		</div>
+		<div class="col-md-2">
+			<%= text_field_tag :end_date, params[:end_date], placeholder: "End Date", class: "form-control" %>
+		</div>
+		<div class="col-md-2">
+			<%= submit_tag "Search", class: "btn btn-primary" %>
+		</div>
+	</div>
+<% end %>
+<br>
+<script>
+	$(function() {
+		$("#start_date").datepicker({
+			dateFormat: 'dd-mm-yy',
+			minDate: 0,
+			maxDate: '3m',
+			onSelect: function(selected) {
+				$('#end_date').datepicker("option", "minDate", selected);
+				$('#end_date').attr('disabled', false);
+			}
+		});
+
+		$("#end_date").datepicker({
+			dateFormat: 'dd-mm-yy',
+			minDate: 0,
+			maxDate: '3m',
+			onSelect: function(selected) {
+				$('#start_date').datepicker("option", "maxDate", selected);
+			}
+		});
+	})
+
+
+</script>
+
+<div class="text-center">
+	<h2 style="color: #5CA05B"><strong>During this month</strong></h2>
+	<p style="color: ##BBD7AF">Discover ideal territories and make your dreams come true</p>
+</div>
+
+<br>
+
+<div class="row">
+	<div class="col-md-4 col-sm-12">
+		<a href="http://estatify.mitzelos.com/search?utf8=%E2%9C%93&search=peloponisos">
+			<div class="discovery-card" style="background-image: url('https://s3-eu-west-1.amazonaws.com/estatify/home1.jpg')">
+				<div class="va-container">
+					<div class="va-middle text-center">
+						<h2><strong>Peloponnese</strong></h2>
+					</div>
+				</div>
+			</div>
+		</a>
+	</div>
+
+	<div class="col-md-4 col-sm-6">
+		<a href="http://estatify.mitzelos.com/search?utf8=%E2%9C%93&search=samos">
+			<div class="discovery-card" style="background-image: url('https://s3-eu-west-1.amazonaws.com/estatify/home2.jpg')">
+				<div class="va-container">
+					<div class="va-middle text-center">
+						<h2><strong>Samos</strong></h2>
+					</div>
+				</div>
+			</div>
+		</a>
+	</div>
+
+	<div class="col-md-4 col-sm-6">
+		<a href="http://estatify.mitzelos.com/search?utf8=%E2%9C%93&search=Epirus">
+			<div class="discovery-card" style="background-image: url('https://s3-eu-west-1.amazonaws.com/estatify/home3.jpg')">
+				<div class="va-container">
+					<div class="va-middle text-center">
+						<h2><strong>Epirus</strong></h2>
+					</div>
+				</div>
+			</div>
+		</a>
+	</div>
+</div>
+
+<br>
+
+<div class="text-center">
+	<h1 style="color: #5CA05B"><strong>Available right now</strong></h1>
+	<p style="color: ##BBD7AF">See what our partners have added to Estatify</p>
+</div>
+
+<br>
+
+<div class="row">
+	<% @properties.order("RANDOM()").each do |property| %>
+	<% if property.active %>
+
+		<div class="col-md-4">
+			<div class="panel panel-default">
+				<div class="panel-heading preview">
+					<%= image_tag property.photos[0].image.url(:home) if property.photos.length > 0 %>
+				</div>
+				<div class="panel-body">
+					<%= image_tag avatar_url(property.user), class: "img-circle avatar-small" %>&nbsp;
+					<%= link_to property.listing_name, property %>
+				</div>
+			</div>
+		</div>
+<% end %>
+	<% end %>
+</div>

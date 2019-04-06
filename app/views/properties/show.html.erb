@@ -1,0 +1,205 @@
+<div class="panel panel-default">
+  <div class="panel-body">
+
+    <!-- Main Image -->
+    <div class="row">
+      <div class="col-md-12">
+        <%= image_tag @photos[0].image.url(), class: "img-responsive" if @photos.length > 0 %>
+        <!-- if there is at least one photo added, display it -->
+      </div>
+    </div>
+
+    <br>
+
+    <!-- Main Info -->
+    <div class="row">
+      <div class="col-md-8">
+        <div class="row">
+          <div class="col-md-3 text-center">
+            <%= image_tag avatar_url(@property.user), class: "img-circle avatar-large" %><br><br>
+            <a href="/users/<%= @property.user.id %>"><%=  @property.user.fullname %></a><br>
+            <% if user_signed_in? %>
+              <% if current_user != @property.user %>
+                  <%= link_to "Contact Owner", conversations_path(sender_id: current_user.id, recipient_id: @property.user.id), method: 'post', class: "btn btn-primary wide" %>
+              <% end %>
+            <% end %>
+          </div>
+
+          <div class="col-md-9">
+            <h3 class="listing-name" style="color: #5CA05B"><%= @property.listing_name %></h3>
+	           <%= @property.address %>
+
+            <div class="row text-center row-space-1">
+              <br><div class="col-sm-2">
+                <i class="fa fa-codepen fa-2x" style="color: SaddleBrown"></i>
+      		      <p><%= @property.space_type %></p>
+              </div>
+              <div class="col-sm-2">
+                <i class="fa fa-tree fa-2x" style="color: Green"></i>
+      		      <p><%= @property.category %></p>
+              </div>
+              <div class="col-sm-2">
+                <i class="fa fa-envira fa-2x" style="color: ForestGreen"></i>
+      		      <p><%= @property.ground_type %></p>
+              </div>
+              <div class="col-sm-2">
+                <i class="fa fa-angle-double-up fa-2x" style="color: Maroon"></i>
+      		      <p><%= @property.flatness %></p>
+              </div>
+              <div class="col-sm-2">
+                <i class="fa fa-delicious fa-2x"></i>
+      		      <p><%= @property.dimensions.to_i %> τ.μ.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <!-- Add reservation system here? or col-md-3?  -->
+        <%= render 'reservations/form' %>
+      </div>
+    </div>
+    <hr data-reactid="20">
+    <!-- About -->
+    <div class="row">
+      <div class="col-md-12">
+        <h3 class="green-titles">About This Listing</h3>
+        <p><%= @property.summary %></p>
+      </div>
+    </div>
+
+    <hr data-reactid="20">
+    <!-- Extras -->
+    <h3 class="green-titles">Extras</h3><br>
+    <div class="row">
+      <div class="col-md-4">
+        <ul class="amenities">
+          <li class="<%= 'text-line-through' if !@property.fenced %>">Fenced</li>
+          <li class="<%= 'text-line-through' if !@property.buildings %>">Buildings</li>
+					<li class="<%= 'text-line-through' if !@property.animals %>">Animals</li>
+          <li class="<%= 'text-line-through' if !@property.vehicles %>">Vehicles</li>
+					<li class="<%= 'text-line-through' if !@property.drilling %>">Drilling</li>
+          <li class="<%= 'text-line-through' if !@property.water_system %>">Water System</li>
+        </ul>
+      </div>
+      <div class="col-md-4">
+        <ul class="amenities">
+          <li class="<%= 'text-line-through' if !@property.water_supply %>">Water Supply</li>
+          <li class="<%= 'text-line-through' if !@property.power_supply %>">Power Supply</li>
+					<li class="<%= 'text-line-through' if !@property.tools %>">Tools</li>
+          <li class="<%= 'text-line-through' if !@property.pools_lakes %>">Pool / Small Lake</li>
+					<li class="<%= 'text-line-through' if !@property.constructions %>">Constructions</li>
+          <li class="<%= 'text-line-through' if !@property.anti_fire %>">Anti Fire Mechanisms</li>
+        </ul>
+      </div>
+
+      <div class="col-md-4">
+        <ul class="amenities">
+					<li class="<%= 'text-line-through' if !@property.lightning %>">lightning Rod</li>
+          <li class="<%= 'text-line-through' if !@property.alarm_system %>">Alarm System</li>
+					<li class="<%= 'text-line-through' if !@property.cctv %>">CCTV Cameras</li>
+          <li class="<%= 'text-line-through' if !@property.solar_panels %>">Solar Panels</li>
+					<li class="<%= 'text-line-through' if !@property.wind_turbines %>">Wind Turbines</li>
+        </ul>
+      </div>
+
+    </div>
+    <hr data-reactid="20">
+    <!-- Carousel schools -->
+    <div class="row">
+      <div class="col-md-10 col-md-offset-1">
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+
+          <% if @photos %>
+          <!-- Indicators -->
+          <ol class="carousel-indicators">
+            <% @photos.each do |photo| %>
+            <li data-target="#myCarousel" data-slide-to="<%= photo.id %>"></li>
+            <% end %>
+          </ol>
+          <% end %>
+
+          <div class="carousel-inner" role="listbox">
+            <% if @photos %>
+            <% @photos.each do |photo| %>
+            <div class="item <%= 'active' if photo.id == @photos[0].id %>">
+              <%= image_tag photo.image.url() %>
+              <!-- If there are photos for this listing, display them -->
+            </div>
+            <% end %>
+            <% end %>
+          </div>
+          <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <br>
+    <hr data-reactid="20">
+
+    <!-- Reviews -->
+    <div class="row">
+      <div class="col-md-12">
+        <h3 class="green-titles">Reviews <span id="average_rating"></span> <small class="green-titles">(<%= @reviews.count %>)</small></h3>
+        <div class="container">
+          <div>
+            <%= render 'reviews/form' if @booked && !@hasReview %>
+          </div>
+          <div>
+            <%= render 'reviews/list' %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <hr data-reactid="20">
+
+    <!-- Google Maps -->
+    <div class="row">
+      <div class="col-md-12">
+        <div id="map"></div>
+
+        <style>
+          #map {
+            width: 100%;
+            height: 400px;
+          }
+
+        </style>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_9RXdNxitJneOypayZsILYWqsLPDrBt0&callback=initMap"></script>
+        <script>
+          function initMap() {
+            var estatify_location = {
+              lat: <%= @property.latitude %>,
+              lng: <%= @property.longitude %>
+            };
+            var map = new google.maps.Map(document.getElementById('map'), {
+              zoom: 9,
+              center: estatify_location
+            });
+            var marker = new google.maps.Marker({position: estatify_location, map: map});
+          }
+        </script>
+      </div>
+    </div>
+    <hr data-reactid="20">
+
+    <!-- Rules -->
+      <div class="row">
+        <div class="col-md-12">
+          <h3 class="green-titles">Rules</h3>
+          <p><%= @property.rules %></p>
+        </div>
+        </div>
+      </div>
+
+  </div>
+</div>

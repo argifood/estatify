@@ -1,0 +1,131 @@
+<div class="row">
+  <div class="col-md-3">
+    <div class="center">
+      <% if @user.image %>
+      	<img class="avatar-full" src="<%= @user.image %>?height=500" alt="avatar"/>
+    	<% else %>
+      	<%= image_tag avatar_url(@user), class: "avatar-full" %>
+      <% end %>
+
+      <% if user_signed_in? %>
+      <% if current_user != @user %>
+	      <div class="row-space-2">
+	        <%= link_to "Send Message", conversations_path(sender_id: current_user.id, recipient_id: @user.id), method: 'post', class: "btn btn-primary wide" %>
+	      </div>
+      <% end %>
+      <% end %>
+
+    </div>
+    <br>
+    <div class="panel panel-default">
+      <center><div class="panel-heading" style="color:#FFFFFF; background-color:#bbd7af;">Trust and Verification</div></center>
+      <div class="panel-body">
+        <i class="fa fa-envelope"></i>
+        <strong>
+          Email Address:
+        </strong>
+        <p><%= @user.email %></p><br>
+        <i class="fa fa-phone-square"></i>
+        <strong>
+          Phone Number:
+        </strong>
+        <p><%= @user.phone_number %></p><br>
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <center><div class="panel-heading" style="color:#FFFFFF; background-color:#bbd7af;">Connected Accounts</div>
+      <div class="panel-body">
+        <% if @user.fb_link.present? %>
+        <a href="https://facebook.com/<%= @user.fb_link %>"><i class="fa fa-facebook-square fa-2x fb_awesome"></i></a>
+        <% else %>
+          <i class="fa fa-facebook-square fa-2x"></i>
+        <% end %>
+
+        <% if @user.twitter_link.present? %>
+        <a href="https://twitter.com/<%= @user.twitter_link %>"><i class="fa fa-twitter-square fa-2x tw_awesome"></i></a>
+        <% else %>
+        <i class="fa fa-twitter-square fa-2x"></i>
+        <% end %>
+
+        <% if @user.gplus_link.present? %>
+        <a href="<%= @user.gplus_link %>"><i class="fa fa-google-plus-square fa-2x gplus_awesome"></i></a>
+        <% else %>
+        <i class="fa fa-google-plus-square fa-2x"></i>
+        <% end %>
+
+        <% if @user.lkdin_link.present? %>
+        <a href="<%= @user.lkdin_link %>"><i class="fa fa-linkedin-square fa-2x lkdin_awesome"></i></a>
+        <% else %>
+        <i class="fa fa-linkedin-square fa-2x"></i>
+        <% end %>
+
+        <% if @user.skype_link.present? %>
+        <a href="skype://<%= @user.skype_link %>?add"><i class="fa fa-skype fa-2x skype_awesome"></i></a>
+        <% else %>
+        <i class="fa fa-skype fa-2x"></i>
+        <% end %>
+	      </div></center>
+    </div>
+  </div>
+
+  <div class="col-md-9">
+    <strong>
+      <h1 style="color: #5CA05B">Hello, I am
+        <%= @user.fullname %>!</h1>
+    </strong>
+
+    <div class="description row-space-3">
+      <p style="color: #484848;"><%= @user.description %>
+        <p></div>
+
+        <strong>
+          <h2 style="color: #5CA05B">Listings
+            <small class="green-titles">(<%= @properties.length %>)</small>
+          </h2>
+        </strong><br>
+
+        <div class="row">
+
+          <% @properties.each do |property| %>
+          <div class="col-md-4">
+            <div class="panel panel-default">
+              <div class="panel-heading preview">
+                <%= image_tag property.photos[0].image.url(:medium) %>
+              </div>
+              <div class="panel-body">
+                <%= link_to property.listing_name, property %>
+              </div>
+            </div>
+          </div>
+          <% end %>
+
+        </div>
+
+        <strong>
+          <h2 style="color: #5CA05B">Reviews</h2>
+        </strong>
+	<br>
+
+        <% @properties.each do |property| %>
+        <% if !property.reviews.blank? %>
+
+        <% property.reviews.each do |review| %>
+        <div class="row">
+          <div class="col-md-2 text-center">
+            <%= image_tag avatar_url(review.user), class: "img-circle avatar-medium" %><br>
+            <%= review.user.fullname %>
+          </div>
+          <div class="col-md-10">
+            <%= link_to property.listing_name, property %><br>
+            <%= review.comment %><br>
+            <%= review.created_at.strftime("%v") %>
+          </div>
+        </div>
+        <% end %>
+
+        <% end %>
+        <% end %>
+
+      </div>
+    </div>
