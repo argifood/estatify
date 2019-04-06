@@ -57,9 +57,14 @@
 		<br>
 	</div>
 
+	<div class="col-md-12">
+		<label>Credit Card Number</label>
+		<input type="text" name="lname" class="form-control" placeholder="Credit Card Number" required><br>
+	</div>
 
-	<%= f.submit "Book Now", id: "btn_book", class: "btn btn-primary wide", disabled: 'true' %>
+	<%= f.submit "Pay with NBG", id: "btn_book",class: "btn btn-primary wide"%>
 	 <% if !user_signed_in? %> <p>Sign in to reserve this property</p> <% end %>
+
 <% end %>
 
 <script>
