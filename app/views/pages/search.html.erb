@@ -24,7 +24,7 @@
 	        <% @arrProperties.each do |property| %>
 		        var marker = new google.maps.Marker({
 		        	position: new google.maps.LatLng(<%= property.latitude %>, <%= property.longitude %>),
-		        	title: "AirAlien"
+		        	title: ""
 		        });
 
 		        marker.setMap(map);
