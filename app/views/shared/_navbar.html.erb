@@ -32,12 +32,7 @@
           Messages
           <% end %>
         </li>
-        <li>
-          <%= link_to support_path do %>
-          <i class="fa fa-info-circle"></i>
-          Help
-          <% end %>
-        </li>
+
 
         <% if(!user_signed_in?) %>
         <li><%= link_to "Log In", new_user_session_path %></li>
@@ -60,7 +55,7 @@
             <li><%= link_to "View Profile", user_path(current_user.id) %></li>
             <li role="separator" class="divider"></li>
             <li><%= link_to "Edit Profile", edit_user_registration_path %></li>
-            
+
             <li><%= link_to "Log out", destroy_user_session_path, method: :delete %></li>
           </ul>
         </li>
