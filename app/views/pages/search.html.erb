@@ -6,7 +6,7 @@
 	<div id="sidebar">
 		<div id="widget" class="sticky">
 
-			<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_9RXdNxitJneOypayZsILYWqsLPDrBt0&callback=initMap"></script>
+			<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD2D-GemsAQ4ckeCUSZ0UwhNMhb8EVrtak&callback=initMap"></script>
 	    <script>
 	      function initialize() {
 	        var mapCanvas = document.getElementById('widget');
@@ -65,21 +65,21 @@
 						<div class="col-md-4">
 							<div class="form-group">
 								<label>Type</label>
-		            <%= f.select :space_type, [["For cultivation","For cultivation"], ["For events","For events"]], id: "space_type", prompt: "Select...", class: "form-control" %>
+		            <%= f.select :space_type, [["Δενδρωδεις","Δενδρωδεις"], ["Αμπέλια","Αμπέλια"], ["Βοσκωτόπους","Βοσκωτόπους"]], id: "space_type", prompt: "Select...", class: "form-control" %>
 		          </div>
 						</div>
 
 						<div class="col-md-4">
 							<div class="form-group">
 								<label>Category</label>
-		            <%= f.select :category, [["Blank","Blank"], ["Cultivable","Cultivable"], ["With trees","With trees"]], prompt: "Select...", class: "form-control" %>
+		            <%= f.select :category, [["Αρδευόμενα","Αρδευόμενα"], ["Ξηρικά","Ξηρικά"]], prompt: "Select...", class: "form-control" %>
 		          </div>
 						</div>
 
 						<div class="col-md-4">
 							<div class="form-group">
 								<label>Main Ground Type</label>
-		            <%= f.select :ground_type, [["Gazon","Gazon"], ["Concrete","Concrete"], ["Soil","Soil"]], prompt: "Select...", class: "form-control" %>
+		            <%= f.select :ground_type, [["Ορεινό","Ορεινό"], ["Ημι-ορεινό","Ημι-ορεινό"], ["Πεδινό","Πεδινό"], ["Προστατευόμενη Περιοχή","Προστατευόμενη Περιοχή"]], prompt: "Select...", class: "form-control" %>
 		          </div>
 						</div>
 					</div>
